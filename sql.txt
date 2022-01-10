@@ -7,7 +7,7 @@ ReachDT        DateTime,
 PassID        int
 )
 
-
+create table pkr@@
 
 create table passengers(
 PassID        int,
