@@ -1,0 +1,230 @@
+ stored procedure
+
+
+https://drive.google.com/drive/folders/13IcRzJHqGQrXhAMxUhZGUOZk1TALTWqA
+
+
+create procedure delete_record(@book_id int) begin
+
+as DELETE FROM bookss WHERE book_id=@book_id;
+end
+ execute delete_record(1);
+
+
+
+
+create procedure 
+as
+begin
+delete from library where bk_id;
+end;
+
+
+execute del_row
+
+
+
+
+
+alter procedure del_row(@bookid as int)
+as
+begin
+delete from bookss where bookid=@bookid
+end;
+execute del_row
+
+
+
+
+
+CREATE PROCEDURE Employee 
+       @emp_id           nvarchar(50)  = NULL   , 
+          , 
+                       
+AS 
+BEGIN 
+
+     INSERT INTO Employee
+          (                    
+            emp_id                    ,
+            emp_nm                             
+          ) 
+     VALUES 
+          ( 
+            emp_id   = '101'               ,
+            emp_nm='Pkr'                
+          ) 
+
+END 
+
+Execute Employee;
+
+
+
+
+
+
+
+
+
+
+Table valued function
+
+
+CREATE FUNCTION mem_det (@jdate datetime)
+RETURNS table
+AS
+RETURN
+    SELECT *
+    FROM Library
+    WHERE ;
+select * from Library(Mar,2000) 
+*********************
+Create function EmpInfo()      
+returns table       
+as      
+return(select * from Employee  )  
+select * from EmpInfo()
+
+
+
+
+
+
+
+
+
+Create function Emp_count(@doj date)  
+returns integer        
+as      
+return(select count(*) 
+from library 
+where month(date) = month(DATE)
+
+select * from Emp_count(8)
+
+
+
+
+
+
+create function fmembers(@month int)
+  return int
+                                                                      
+ begin
+ return(select count(members) 
+ from library where month=@month
+ end
+                                                           
+  select * from fmembers(3)
+
+
+
+
+
+
+
+Triggers
+
+
+
+CREATE TABLE TrackBooks(
+Id int identity(1,1) primary key,
+TrackData nvarchar(1000)
+)
+
+
+CREATE TRIGGER tr_Books_ForInsert 
+ON Bookss 
+FOR insert
+AS 
+BEGIN 
+Declare @Id int 
+Select @Id = bookId from inserted 
+insert into TrackBooks values('New Book with Id  = ' 
++ Cast(@Id as nvarchar(5)) + ' is added at ' 
++ cast(Getdate() as nvarchar(20))) 
+END
+Insert into Bookss values (77,'Tan',  3)
+
+
+
+select * from TrackBooks
+select * from bookss
+
+
+
+
+
+CREATE TRIGGER tr_Books_ForDelete 
+ON Bookss 
+FOR DELETE 
+AS 
+BEGIN 
+Declare @Id int 
+Select @Id = BookId from deleted 
+insert into TrackBooks 
+values('An existing Book with Id  = ' + Cast(@Id as nvarchar(5)) 
++ ' is deleted at ' + Cast(Getdate() as nvarchar(20))) 
+END
+delete from bookss where bookid=77
+select * from trackbooks
+
+
+
+alter TRIGGER tr_Books_ForInsert 
+ON Bookss 
+FOR insert
+AS 
+BEGIN 
+select * from inserted
+END
+Insert into Bookss values (77,'Tan',  3)
+
+
+
+
+
+
+CREATE TRIGGER insdel 
+ON Bookss 
+instead of insert
+AS 
+BEGIN 
+insert into trackbooks values('I avoided insertion of new record')
+END
+
+
+
+
+create a trigger which on insertion of new book will update the book table with qty of all records to 25l 
+
+
+
+
+
+//  transaction table
+
+create procedure spUpdatebooks
+as 
+begin
+    begin try
+        begin transaction
+            update books set booknm='java java java java java' where id =2
+        commit transaction
+        print 'transation Commited...'
+    end try
+    begin catch
+        rollback transaction
+        print 'transation Rollback...'
+    end catch
+end
+
+
+
+
+//indexes
+
+
+CREATE INDEX myIndex ON
+SalesData (ProductID)
